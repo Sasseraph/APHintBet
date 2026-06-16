@@ -41,7 +41,7 @@ function calcOdds() {
 
       // Alert if invalid bet
       if (bet > hintPoints) {
-        result += `<p style="color: Tomato">This slot can not currently afford this bet.</p>`;
+        result += `<p style="color: Tomato">This slot can not afford this bet.</p>`;
       }
 
       // Insert results
@@ -62,6 +62,8 @@ function randomise() {
   var rand = (Math.random() * 100).toFixed(2);
   document.getElementById("randResult").innerHTML =
     `Result: <span id="num">${rand}</span>`;
+  console.log(`Chance: ${chance}, Rand: ${rand}`);
+  console.log(`Rand <= chance: ${rand <= chance}`);
 
   if (rand <= chance) {
     document.getElementById("num").style.color = "DarkSeaGreen";
