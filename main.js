@@ -23,7 +23,7 @@ function calcOdds() {
   ])
     .then(([checksDone, checksTotal, pointsUsed]) => {
       // Calculate success
-      chance = ((bet / checksTotal) * 6 * 100).toFixed(2);
+      chance = parseFloat(((bet / checksTotal) * 6 * 100).toFixed(2));
 
       // Insert results
       var result = `<h2>Results</h2> \
@@ -59,11 +59,9 @@ function calcOdds() {
 
 function randomise() {
   // Random number to 2 decimal points, 0–100
-  var rand = (Math.random() * 100).toFixed(2);
+  var rand = parseFloat((Math.random() * 100).toFixed(2));
   document.getElementById("randResult").innerHTML =
     `Result: <span id="num">${rand}</span>`;
-  console.log(`Chance: ${chance}, Rand: ${rand}`);
-  console.log(`Rand <= chance: ${rand <= chance}`);
 
   if (rand <= chance) {
     document.getElementById("num").style.color = "DarkSeaGreen";
