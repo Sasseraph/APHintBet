@@ -19,9 +19,10 @@ function calcOdds() {
     // Cheese
     getField(slotName, "checks_done"),
     getField(slotName, "checks_total"),
-    // getHintPoints(slotName),
+    getHintPoints(slotName),
   ])
-    .then(([checksDone, checksTotal]) => {
+    .then(([checksDone, checksTotal, hintPoints]) => {
+      console.log(hintPoints);
       // Calculate success
       chance = ((bet / checksTotal) * 6 * 100).toFixed(2);
 
@@ -66,19 +67,19 @@ function getField(slot, field) {
   ).then((r) => r.json());
 }
 
-// async function getHintPoints(slot) {
-//   const response = await fetch(
-//     `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`,
-//   );
+async function getHintPoints(slot) {
+  const response = await fetch(
+    `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`,
+  );
 
-//   const text = await response.text();
-//   const json = JSON.parse(text.substring(47, text.length - 2));
+  const text = await response.text();
+  const json = JSON.parse(text.substring(47, text.length - 2));
 
-//   for (const row of json.table.rows) {
-//     const colC = row.c[2]?.v;
-//     if (colC === slotName) {
-//       const colG = row.c[6]?.v;
-//       return colG;
-//     }
-//   }
-// }
+  for (const row of json.table.rows) {
+    const colC = row.c[2]?.v;
+    if (colC === slotName) {
+      const colG = row.c[6]?.v;
+      return colG;
+    }
+  }
+}
