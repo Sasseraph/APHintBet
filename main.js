@@ -20,25 +20,31 @@ function calcOdds() {
     getField(slotName, "checks_done"),
     getField(slotName, "checks_total"),
     // getHintPoints(slotName),
-  ]).then(([checksDone, checksTotal]) => {
-    // Calculate success
-    chance = ((bet / checksTotal) * 6 * 100).toFixed(2);
+  ])
+    .then(([checksDone, checksTotal]) => {
+      // Calculate success
+      chance = ((bet / checksTotal) * 6 * 100).toFixed(2);
 
-    // Insert results
-    var result = `<h2>Results</h2> \
+      // Insert results
+      var result = `<h2>Results</h2> \
       <p><b>${slotName}</b> has completed <b>${checksDone} of ${checksTotal}</b> checks.</p>`;
 
-    result += `<p>A bet of <b>${bet}</b> has a <b>${chance}% chance</b> to succeed.</p>`;
-    if (bet > checksDone) {
-      result += `<p style="color: Tomato">This slot does not currently have enough checks for this bet.</p>`;
-    }
+      result += `<p>A bet of <b>${bet}</b> has a <b>${chance}% chance</b> to succeed.</p>`;
+      if (bet > checksDone) {
+        result += `<p style="color: Tomato">This slot does not currently have enough checks for this bet.</p>`;
+      }
 
-    // Insert results
-    document.getElementById("results").innerHTML = result;
+      // Insert results
+      document.getElementById("results").innerHTML = result;
 
-    // Show randomise button
-    document.getElementById("randBtn").style.visibility = "visible";
-  });
+      // Show randomise button
+      document.getElementById("randBtn").style.visibility = "visible";
+    })
+    .catch(() => {
+      console.log("Invalid slot name.");
+      document.getElementById("results").innerHTML =
+        `<p style="color: Tomato">Slot <b>"${slotName}"</b> not found.</p>`;
+    });
 }
 
 function randomise() {
@@ -48,9 +54,9 @@ function randomise() {
     `Result: <span id="num">${rand}</span>`;
 
   if (rand <= chance) {
-    document.getElementById("num").style.color = "DarkSeaGreen";
+    document.getElementById("num").style.color = DarkSeaGreen;
   } else {
-    document.getElementById("num").style.color = "Tomato";
+    document.getElementById("num").style.color = Tomato;
   }
 }
 
