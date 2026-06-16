@@ -1,0 +1,32 @@
+<!-- HTML -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AP Hint Bets</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <h1>BC Async 5 — Hint Bet Calculator</h1>
+      <div class="content">
+        <!-- Input -->
+        <div>
+          <label>Slot Name: </label>
+          <input type="text" id="inputName" />
+        </div>
+        <div>
+          <label>Bet: </label>
+          <input type="number" id="inputBet" />
+        </div>
+        <div class="btn" onClick="calcOdds()">Calculate</div>
+
+        <!-- Results -->
+        <div id="results"></div>
+        <img id="randBtn" src="rand.png" onClick="randomise()">
+        <div id="randResult"></div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+/* general */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* bg*/
+  background-color: #212529;
+
+  /* spacing */
+  align-items: center;
+  justify-content: center;
+
+  /* text */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13pt;
+  text-align: center;
+}
+
+/* classes */
+h1 {
+  margin: 20px;
+  color: #e7dde0;
+}
+
+.content {
+  /* general */
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+
+  color: #e7dde0;
+  border-radius: 5px;
+}
+p {
+  margin: 5px;
+}
+
+input {
+  margin-left: 20px;
+  padding: 2px;
+}
+#inputName {
+  width: 110px;
+}
+#inputBet {
+  width: 55px;
+}
+
+.btn {
+  color: black;
+  margin: auto;
+  margin-top: 15px;
+  padding: 2px;
+  background-color: #e7dde0;
+  border-radius: 10px;
+  width: 100px;
+  cursor: pointer;
+}
+.btn:hover {
+  filter: brightness(0.8);
+}
+
+#results {
+  margin-top: 20px;
+}
+
+h2 {
+  margin: 10px;
+}
+
+#randBtn {
+  width: 60px;
+  margin: 15px;
+  cursor: pointer;
+  visibility: hidden;
+}
+#randBtn:hover {
+  filter: brightness(0.8);
+}
