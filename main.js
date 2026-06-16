@@ -1,7 +1,7 @@
 const sheetID = "1qPWEuap-FP_FuWgEI9JYOUGmWaXwxVHlQ0rZN8oBGdQ";
 const cheeseID = "HB3ombsSS66dmrLmc7SD6w";
 var slotName, bet;
-var checksDone, checksTotal, hintPoints;
+var checksDone, checksTotal, pointsUsed, hintPoints;
 var chance;
 
 function calcOdds() {
@@ -19,10 +19,9 @@ function calcOdds() {
     // Cheese
     getField(slotName, "checks_done"),
     getField(slotName, "checks_total"),
-    getHintPoints(slotName),
+    getPointsUsed(slotName),
   ])
-    .then(([checksDone, checksTotal, hintPoints]) => {
-      console.log(hintPoints);
+    .then(([checksDone, checksTotal, pointsUsed]) => {
       // Calculate success
       chance = ((bet / checksTotal) * 6 * 100).toFixed(2);
 
@@ -30,9 +29,19 @@ function calcOdds() {
       var result = `<h2>Results</h2> \
       <p><b>${slotName}</b> has completed <b>${checksDone} of ${checksTotal}</b> checks.</p>`;
 
-      result += `<p>A bet of <b>${bet}</b> has a <b>${chance}% chance</b> to succeed.</p>`;
-      if (bet > checksDone) {
-        result += `<p style="color: Tomato">This slot does not currently have enough checks for this bet.</p>`;
+      // If previously betted, show remaining hint points
+      if (pointsUsed > 0) {
+        hintPoints = checksDone - pointsUsed;
+        result += `<p>This slot has <b>${hintPoints} hint points</b> remaining.</p>`;
+      } else {
+        hintPoints = checksDone;
+      }
+
+      result += `<br><p>A bet of <b>${bet}</b> has a <b>${chance}% chance</b> to succeed.</p>`;
+
+      // Alert if invalid bet
+      if (bet > hintPoints) {
+        result += `<p style="color: Tomato">This slot can not currently afford this bet.</p>`;
       }
 
       // Insert results
@@ -67,7 +76,7 @@ function getField(slot, field) {
   ).then((r) => r.json());
 }
 
-async function getHintPoints(slot) {
+async function getPointsUsed(slot) {
   const response = await fetch(
     `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json`,
   );
@@ -78,8 +87,8 @@ async function getHintPoints(slot) {
   for (const row of json.table.rows) {
     const colC = row.c[2]?.v;
     if (colC === slotName) {
-      const colG = row.c[6]?.v;
-      return colG;
+      const colF = row.c[5]?.v;
+      return colF;
     }
   }
 }
