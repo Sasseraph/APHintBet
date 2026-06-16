@@ -54,9 +54,9 @@ function randomise() {
     `Result: <span id="num">${rand}</span>`;
 
   if (rand <= chance) {
-    document.getElementById("num").style.color = DarkSeaGreen;
+    document.getElementById("num").style.color = "DarkSeaGreen";
   } else {
-    document.getElementById("num").style.color = Tomato;
+    document.getElementById("num").style.color = "Tomato";
   }
 }
 
